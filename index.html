@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Support pédagogique</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    header {
+      background: #4a90e2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      background: #2c3e50;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #2c3e50;
+      color: white;
+      margin-top: 20px;
+    }
+
+    button {
+      background: #4a90e2;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #357abd;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Support pédagogique</h1>
+  <p>Apprentissage interactif simple</p>
+</header>
+
+<nav>
+  #introIntroduction</a>
+  <a href="#cours">Cours</a>
+  <a href="#quiz">Quiz</a>
+</nav>
+
+<div class="container">
+
+  <div id="intro" class="card">
+    <h2>Introduction</h2>
+    <p>Bienvenue dans ce support pédagogique. Cette page vous permet d'apprendre les bases d'un sujet de manière simple et interactive.</p>
+  </div>
+
+  <div id="cours" class="card">
+    <h2>Cours</h2>
+    <ul>
+      <li>Concept 1 : Explication simple</li>
+      <li>Concept 2 : Explication simple</li>
+      <li>Concept 3 : Explication simple</li>
+    </ul>
+  </div>
+
+  <div id="quiz" class="card">
+    <h2>Quiz</h2>
+    <p>Quelle est la bonne réponse ?</p>
+    <button onclick="checkAnswer('A')">Réponse A</button>
+    <button onclick="checkAnswer('B')">Réponse B</button>
+    <button onclick="checkAnswer('C')">Réponse C</button>
+
+    <p id="resultat"></p>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 - Support pédagogique</p>
+</footer>
+
+<script>
+  function checkAnswer(rep) {
+    const resultat = document.getElementById("resultat");
+
+    if (rep === 'B') {
+      resultat.innerHTML = "✅ Bonne réponse !";
+      resultat.style.color = "green";
+    } else {
+      resultat.innerHTML = "❌ Mauvaise réponse, essaie encore.";
+      resultat.style.color = "red";
+    }
+  }
+</script>
+
+</body>
+</html>
