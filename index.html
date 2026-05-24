@@ -1,134 +1,564 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Support pédagogique</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f5f7fa;
-      color: #333;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atelier IA ‚Äî Bloc 3 : Discernement | Cadres UQAT</title>
+<meta name="description" content="Page compagnon pour l'atelier pratique sur le discernement avec l'IA g√©n√©rative ‚Äî formation des cadres UQAT.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #161616;
+    --ink-soft: #555;
+    --line: #e6e6e6;
+    --line-strong: #cfcfcf;
+    --accent: #d2691e;
+    --accent-soft: #fff4ec;
+    --code-bg: #fafafa;
+    --highlight: #fff8e5;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--ink); }
+  body {
+    margin: 0;
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 24px 96px; }
+  header.top { border-bottom: 1px solid var(--line); padding-bottom: 24px; margin-bottom: 28px; }
+  header.top .eyebrow { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  header.top h1 { margin: 6px 0 4px; font-size: 28px; line-height: 1.25; }
+  header.top .sub { color: var(--ink-soft); font-size: 15px; }
 
-    header {
-      background: #4a90e2;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+  nav.blocks { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+  nav.blocks a {
+    font-size: 13px; padding: 6px 10px; border: 1px solid var(--line);
+    border-radius: 999px; text-decoration: none; color: var(--ink); background: #fff;
+  }
+  nav.blocks a:hover { border-color: var(--accent); color: var(--accent); }
 
-    nav {
-      background: #2c3e50;
-      padding: 10px;
-      text-align: center;
-    }
+  .filrouge {
+    background: var(--accent-soft);
+    border: 1px solid #f3d2b8;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 24px 0 32px;
+  }
+  .filrouge .label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); font-weight: 700; }
+  .filrouge ol { margin: 8px 0 0; padding-left: 22px; }
+  .filrouge li { margin: 4px 0; font-weight: 500; }
 
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
+  section.block { margin: 40px 0 0; }
+  section.block > .stamp {
+    display: inline-block; font-variant-numeric: tabular-nums;
+    font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.04em;
+  }
+  section.block > h2 { font-size: 22px; margin: 4px 0 10px; }
+  section.block > p.kicker { color: var(--ink-soft); margin: 0 0 18px; font-style: italic; font-size: 15px; }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
+  .activity { border-left: 3px solid var(--line); padding: 4px 0 4px 16px; margin: 18px 0; }
+  .activity h3 { margin: 0 0 6px; font-size: 16px; }
+  .activity .duration { font-size: 12px; color: var(--ink-soft); margin-left: 6px; font-weight: 400; }
+  .activity ul, .activity ol { margin: 6px 0; padding-left: 22px; }
+  .activity li { margin: 3px 0; }
 
-    .container {
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
-    }
+  .discernment {
+    border-left: 3px solid var(--accent);
+    background: var(--highlight);
+    padding: 12px 14px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .discernment .tag { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .discernment p { margin: 6px 0 0; }
 
-    .card {
-      background: white;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+  .prompt-card {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin: 14px 0;
+    overflow: hidden;
+    background: #fff;
+  }
+  .prompt-card .head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px; background: #fafafa; border-bottom: 1px solid var(--line);
+  }
+  .prompt-card .head .title { font-weight: 600; font-size: 14px; }
+  .prompt-card .head .copybtn {
+    border: 1px solid var(--line-strong); background: #fff; color: var(--ink);
+    padding: 6px 12px; font-size: 13px; border-radius: 6px; cursor: pointer;
+    font-family: inherit; font-weight: 500;
+  }
+  .prompt-card .head .copybtn:hover { border-color: var(--accent); color: var(--accent); }
+  .prompt-card .head .copybtn.ok { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .prompt-card pre {
+    margin: 0; padding: 14px 16px; background: var(--code-bg);
+    font: 13.5px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space: pre-wrap; word-wrap: break-word; color: var(--ink);
+  }
 
-    footer {
-      text-align: center;
-      padding: 15px;
-      background: #2c3e50;
-      color: white;
-      margin-top: 20px;
-    }
+  details.aside {
+    margin: 14px 0; border: 1px dashed var(--line-strong); border-radius: 8px;
+    padding: 10px 14px; background: #fcfcfc;
+  }
+  details.aside summary { cursor: pointer; font-weight: 600; font-size: 14px; }
+  details.aside p { margin: 8px 0 0; font-size: 14px; color: var(--ink-soft); }
 
-    button {
-      background: #4a90e2;
-      border: none;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+  .doc-ref {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 14px 0;
+    background: #fcfcfc;
+  }
+  .doc-ref .doc-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+  .doc-ref a.doc-link { font-weight: 600; text-decoration: none; font-size: 15px; color: var(--ink); }
+  .doc-ref a.doc-link:hover { color: var(--accent); text-decoration: underline; }
+  .doc-ref .doc-meta { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+  .doc-ref .doc-hint { font-size: 13px; color: var(--ink-soft); margin-top: 6px; }
 
-    button:hover {
-      background: #357abd;
-    }
-  </style>
+  .materiel { margin: 28px 0 0; }
+  .materiel h2 { font-size: 18px; margin: 0 0 10px; }
+  .materiel .grid { display: grid; gap: 10px; }
+
+  table.catalog { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+  table.catalog th, table.catalog td { border: 1px solid var(--line); padding: 8px 10px; vertical-align: top; }
+  table.catalog th { background: #fafafa; text-align: left; font-weight: 600; }
+  table.catalog td { height: 44px; }
+
+  footer.end { border-top: 1px solid var(--line); margin-top: 56px; padding-top: 20px; color: var(--ink-soft); font-size: 14px; }
+  footer.end .next {
+    background: var(--accent-soft); border: 1px solid #f3d2b8; border-radius: 10px;
+    padding: 14px 16px; margin: 12px 0 18px; color: var(--ink);
+  }
+  footer.end .next strong { color: var(--accent); }
+
+  .small { font-size: 13px; color: var(--ink-soft); }
+  a { color: var(--accent); }
+  hr.soft { border: 0; border-top: 1px solid var(--line); margin: 28px 0; }
+
+  @media print {
+    nav.blocks, .prompt-card .head .copybtn { display: none; }
+    .wrap { padding: 0; max-width: none; }
+    a { color: var(--ink); }
+  }
+</style>
 </head>
 <body>
+<div class="wrap">
 
-<header>
-  <h1>Support pédagogique</h1>
-  <p>Apprentissage interactif simple</p>
-</header>
+  <header class="top">
+    <div class="eyebrow">Formation des cadres ‚Äî UQAT</div>
+    <h1>Atelier IA ¬∑ Bloc 3 ‚Äî Discernement</h1>
+    <div class="sub">Laboratoire pratique ¬∑ 2 heures ¬∑ ChatGPT free ou Microsoft Copilot free</div>
+    <nav class="blocks" aria-label="Navigation des blocs">
+      <a href="#filrouge">Fil rouge</a>
+      <a href="#materiel">Mat√©riel</a>
+      <a href="#warmup">00:00 ¬∑ R√©chauffement</a>
+      <a href="#bloc1">00:15 ¬∑ Ing√©nierie documentaire</a>
+      <a href="#bloc2">00:45 ¬∑ Id√©ation & mise √† l'√©preuve</a>
+      <a href="#bloc3">01:20 ¬∑ Master-Prompt</a>
+      <a href="#cloture">01:50 ¬∑ Cl√¥ture</a>
+      <a href="#annexes">Annexes</a>
+    </nav>
+  </header>
 
-<nav>
-  #introIntroduction</a>
-  <a href="#cours">Cours</a>
-  <a href="#quiz">Quiz</a>
-</nav>
+  <section id="filrouge" class="filrouge">
+    <div class="label">Fil rouge de l'atelier</div>
+    <ol>
+      <li>Est-ce que la sortie est utilisable en l'√©tat?</li>
+      <li>Qu'est-ce que je devrais v√©rifier avant de l'utiliser?</li>
+    </ol>
+    <div class="small" style="margin-top:10px;">Ces deux questions reviennent √† chaque exercice. Elles sont le c≈ìur du Discernement.</div>
+  </section>
 
-<div class="container">
+  <p class="small">Aujourd'hui on travaille uniquement avec des <strong>documents publics</strong> de l'UQ et de l'UQAT. Pourquoi pas vos propres documents internes (RH, PV de comit√©s, dossiers √©tudiants)? R√©ponse au bloc 4 (Diligence).</p>
 
-  <div id="intro" class="card">
-    <h2>Introduction</h2>
-    <p>Bienvenue dans ce support pédagogique. Cette page vous permet d'apprendre les bases d'un sujet de manière simple et interactive.</p>
-  </div>
+  <!-- MAT√âRIEL -->
+  <section id="materiel" class="materiel">
+    <h2>Mat√©riel de l'atelier ‚Äî quatre documents publics</h2>
+    <p class="small" style="margin-top:0;">T√©l√©chargez ou ouvrez les documents avant de commencer. Vous pouvez aussi laisser cet onglet ouvert et cliquer sur les liens au moment voulu.</p>
+    <div class="grid">
+      <div class="doc-ref">
+        <div class="doc-label">R√©chauffement ¬∑ document de travail</div>
+        <a class="doc-link" href="https://docutheque.uquebec.ca/id/eprint/597/1/rapport-2024-2025.pdf" target="_blank" rel="noopener">Rapport annuel 2024-2025 ‚Äî Universit√© du Qu√©bec (PDF, 8 Mo)</a>
+        <div class="doc-meta">Fiche descriptive : <a href="https://docutheque.uquebec.ca/id/eprint/597/" target="_blank" rel="noopener">docutheque.uquebec.ca/id/eprint/597</a></div>
+        <div class="doc-hint">Pour l'exercice, concentrez-vous sur le <strong>Message de la pr√©sidente</strong> ou une seule des grandes orientations (3-4 pages). Copiez le texte de cette section pour l'utiliser dans le prompt.</div>
+      </div>
 
-  <div id="cours" class="card">
-    <h2>Cours</h2>
-    <ul>
-      <li>Concept 1 : Explication simple</li>
-      <li>Concept 2 : Explication simple</li>
-      <li>Concept 3 : Explication simple</li>
-    </ul>
-  </div>
+      <div class="doc-ref">
+        <div class="doc-label">Bloc 1 ¬∑ synth√®se multiniveau</div>
+        <a class="doc-link" href="https://www.uqat.ca/uqat/plan-strategique/" target="_blank" rel="noopener">Plan strat√©gique 2025-2030 de l'UQAT</a>
+        <div class="doc-meta">Page institutionnelle ‚Äî 5 orientations, 20 objectifs strat√©giques</div>
+        <div class="doc-hint">Choisissez <strong>une orientation</strong> (texte court, 1-2 pages) et travaillez dessus. Vous connaissez le document mieux que l'IA : c'est exactement ce qu'il faut pour exercer votre Discernement.</div>
+      </div>
 
-  <div id="quiz" class="card">
-    <h2>Quiz</h2>
-    <p>Quelle est la bonne réponse ?</p>
-    <button onclick="checkAnswer('A')">Réponse A</button>
-    <button onclick="checkAnswer('B')">Réponse B</button>
-    <button onclick="checkAnswer('C')">Réponse C</button>
+      <div class="doc-ref">
+        <div class="doc-label">Bloc 2 ¬∑ id√©ation et mise √† l'√©preuve</div>
+        <a class="doc-link" href="https://www.uqat.ca/uqat/ecoresponsabilite/docs/Plan-Ecoresponsabilite.pdf" target="_blank" rel="noopener">Plan en √©coresponsabilit√© de l'UQAT (PDF)</a>
+        <div class="doc-meta">59 actions, 7 objectifs, horizon 2030 ‚Äî adopt√© en 2024</div>
+        <div class="doc-hint">Servira de point de d√©part : l'IA devra g√©n√©rer des initiatives <em>en plus</em> du plan existant, et vous jugerez si elles sont g√©n√©riques ou r√©ellement adapt√©es au contexte UQAT.</div>
+      </div>
 
-    <p id="resultat"></p>
-  </div>
+      <div class="doc-ref">
+        <div class="doc-label">Bloc 3 ¬∑ Master-Prompt ¬´ expert ¬ª</div>
+        <a class="doc-link" href="https://resolutionsuqat.uquebec.ca/resolutions/PP/2011/Politique_institutionnelle_evaluation_periodique_programme_2025-04-30.pdf" target="_blank" rel="noopener">Politique institutionnelle d'√©valuation p√©riodique des programmes ‚Äî UQAT (PDF, mise √† jour 30 avril 2025)</a>
+        <div class="doc-meta">Document de r√©f√©rence pour calibrer le Master-Prompt</div>
+        <div class="doc-hint">Le Master-Prompt fourni plus bas s'inspire de ce cadre. Vous pourrez tester l'expert virtuel avec deux courts extraits pr√©par√©s par le formateur.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- R√âCHAUFFEMENT -->
+  <section id="warmup" class="block">
+    <span class="stamp">00:00 ‚Äî 00:15</span>
+    <h2>R√©chauffement ¬∑ Le M√©ga-Prompt avant / apr√®s</h2>
+    <p class="kicker">Calibrer le niveau. Voir la diff√©rence entre IA ¬´ moteur de recherche ¬ª et IA ¬´ collaborateur ¬ª.</p>
+
+    <div class="activity">
+      <h3>√âtape 1 ‚Äî La version na√Øve <span class="duration">4 min</span></h3>
+      <p>Ouvrez le <a href="https://docutheque.uquebec.ca/id/eprint/597/1/rapport-2024-2025.pdf" target="_blank" rel="noopener">Rapport annuel 2024-2025 de l'UQ</a>, copiez le texte du <strong>Message de la pr√©sidente</strong> (ou d'une grande orientation), puis collez le prompt ci-dessous dans ChatGPT ou Copilot avec ce texte.</p>
+    </div>
+
+    <div class="prompt-card">
+      <div class="head"><span class="title">M√©ga-prompt na√Øf</span>
+        <button class="copybtn" data-target="p-naive">Copier</button></div>
+<pre id="p-naive">R√©sume-moi ce document.
+
+[coller ici le texte du Message de la pr√©sidente
+ou d'une orientation du Rapport annuel UQ]</pre>
+    </div>
+
+    <div class="activity">
+      <h3>√âtape 2 ‚Äî La version augment√©e <span class="duration">4 min</span></h3>
+      <p>Maintenant relancez avec ce prompt-ci. Notez ce qui change.</p>
+    </div>
+
+    <div class="prompt-card">
+      <div class="head"><span class="title">M√©ga-prompt augment√©</span>
+        <button class="copybtn" data-target="p-augmente">Copier</button></div>
+<pre id="p-augmente">Tu agis comme adjoint de direction dans une universit√© du r√©seau Universit√© du Qu√©bec. Tu lis ci-dessous un extrait du Rapport annuel 2024-2025 du r√©seau UQ.
+
+Produis deux livrables :
+1. Un r√©sum√© en 3 phrases destin√© aux cadres de l'UQAT. Ton institutionnel. Focus sur les enjeux strat√©giques pour notre √©tablissement, pas sur les d√©tails op√©rationnels du r√©seau.
+2. Une liste de 5 implications concr√®tes pour la gouvernance de l'UQAT. Chaque implication commence par un verbe d'action.
+
+R√®gles strictes :
+- N'invente aucun chiffre, aucune date, aucun nom propre.
+- Si une information te manque, √©cris [√Ä V√âRIFIER] plut√¥t que de combler.
+- Cite, pour chaque implication, la section du document dont elle est tir√©e.
+
+Voici l'extrait :
+[coller le texte]</pre>
+    </div>
+
+    <div class="activity">
+      <h3>√âtape 3 ‚Äî Mise en commun <span class="duration">5 min</span></h3>
+      <p>Quelles 3 diff√©rences avez-vous observ√©es? Lev√©e de main : r√¥le, contexte, format de sortie, garde-fous?</p>
+    </div>
+  </section>
+
+  <!-- BLOC 1 -->
+  <section id="bloc1" class="block">
+    <span class="stamp">00:15 ‚Äî 00:45</span>
+    <h2>Bloc 1 ¬∑ Ing√©nierie documentaire</h2>
+    <p class="kicker">Familles : Synth√®se ¬∑ R√©daction ¬∑ Adaptation. Document de travail : Plan strat√©gique 2025-2030 de l'UQAT.</p>
+
+    <div class="doc-ref">
+      <div class="doc-label">Document de travail</div>
+      <a class="doc-link" href="https://www.uqat.ca/uqat/plan-strategique/" target="_blank" rel="noopener">Plan strat√©gique 2025-2030 de l'UQAT</a>
+      <div class="doc-hint">Choisissez une seule orientation parmi les cinq et copiez son texte. Vous connaissez ce document mieux que l'IA ‚Äî c'est l'id√©al pour exercer votre Discernement.</div>
+    </div>
+
+    <div class="activity">
+      <h3>Exercice 1 ‚Äî Synth√®se multiniveau <span class="duration">10 min</span></h3>
+      <ul>
+        <li>Demandez √† l'IA un r√©sum√© en 3 phrases pour le <strong>rectorat</strong> (ton institutionnel).</li>
+        <li>Puis une liste de 5 actions concr√®tes pour les <strong>directeurs de service</strong> (ton op√©rationnel).</li>
+      </ul>
+    </div>
+
+    <div class="prompt-card">
+      <div class="head"><span class="title">Prompt ‚Äî Synth√®se multiniveau</span>
+        <button class="copybtn" data-target="p-synth">Copier</button></div>
+<pre id="p-synth">Tu agis comme adjoint de direction √† l'UQAT. Tu re√ßois ci-dessous une orientation du Plan strat√©gique 2025-2030 de l'UQAT.
+
+Produis deux livrables distincts :
+
+LIVRABLE 1 ‚Äî Pour le recteur (3 phrases max, ton institutionnel, enjeux strat√©giques uniquement).
+
+LIVRABLE 2 ‚Äî Pour les directeurs de service (5 actions concr√®tes, chaque action commence par un verbe, ton op√©rationnel).
+
+R√®gles :
+- N'invente aucun chiffre, aucune date, aucun nom propre.
+- Si une information manque, √©cris [√Ä V√âRIFIER].
+- Cite la sous-section de l'orientation pour chaque action.
+
+Orientation :
+[coller le texte]</pre>
+    </div>
+
+    <div class="discernment">
+      <span class="tag">Moment Discernement ¬∑ 5 min ¬∑ v√©rifier contre la source</span>
+      <p>Relisez votre sortie. <strong>Surlignez en rouge les 3 affirmations que vous devriez v√©rifier</strong> avant de transmettre √ßa au recteur. Puis ouvrez le Plan strat√©gique c√¥te √† c√¥te : l'IA a-t-elle ajout√© des objectifs qui n'y figurent pas? Reformul√© un chiffre? Invent√© un nom de comit√© ou un √©ch√©ancier? C'est le c≈ìur du Discernement : ne jamais transmettre une sortie sans la confronter √† la source.</p>
+    </div>
+
+    <div class="activity">
+      <h3>Exercice 2 ‚Äî Apprentissage par l'exemple (¬´ clone √©ditorial ¬ª) <span class="duration">10 min</span></h3>
+      <ul>
+        <li>Donnez √† l'IA un de vos propres courriels pass√©s comme <strong>exemple de style</strong>.</li>
+        <li>Demandez-lui d'√©crire un nouveau courriel sur un sujet diff√©rent, en imitant ce style.</li>
+      </ul>
+    </div>
+
+    <div class="prompt-card">
+      <div class="head"><span class="title">Prompt ‚Äî Apprentissage par l'exemple</span>
+        <button class="copybtn" data-target="p-fewshot">Copier</button></div>
+<pre id="p-fewshot">Voici un courriel que j'ai √©crit dans le pass√©. √âtudie attentivement mon style : longueur des phrases, vocabulaire, formules d'ouverture et de cl√¥ture, niveau de formalit√©, fa√ßon de structurer les paragraphes.
+
+[coller votre courriel exemple]
+
+Maintenant, en imitant EXACTEMENT ce style, r√©dige-moi un courriel sur le sujet suivant :
+
+[d√©crire le nouveau sujet en 2-3 lignes : destinataire, contexte, objectif]
+
+Ne change rien √† mon ton ni √† mes formules. Si tu h√©sites sur le ton √† adopter pour un passage, choisis l'option la plus proche de l'exemple.</pre>
+    </div>
+
+    <div class="discernment">
+      <span class="tag">Moment Discernement</span>
+      <p>Qu'est-ce qui sonne juste? Qu'est-ce qui sonne faux? L'IA a-t-elle ¬´ surfait ¬ª votre style (caricature) ou est-elle rest√©e fid√®le?</p>
+    </div>
+  </section>
+
+  <!-- BLOC 2 -->
+  <section id="bloc2" class="block">
+    <span class="stamp">00:45 ‚Äî 01:20</span>
+    <h2>Bloc 2 ¬∑ Id√©ation et mise √† l'√©preuve</h2>
+    <p class="kicker">Familles : Id√©ation ¬∑ Analyse critique. Cas concret : enrichir le Plan en √©coresponsabilit√© 2024-2030 de l'UQAT.</p>
+
+    <div class="doc-ref">
+      <div class="doc-label">Document de travail</div>
+      <a class="doc-link" href="https://www.uqat.ca/uqat/ecoresponsabilite/docs/Plan-Ecoresponsabilite.pdf" target="_blank" rel="noopener">Plan en √©coresponsabilit√© de l'UQAT (PDF)</a>
+      <div class="doc-meta">7 objectifs, 59 actions, horizon 2030</div>
+      <div class="doc-hint">Le plan existe d√©j√†. L'exercice consiste √† demander √† l'IA des initiatives <em>compl√©mentaires</em>, puis √† les confronter aux actions d√©j√† pr√©vues. Ce qui se recoupe? Ce qui ajoute vraiment quelque chose?</div>
+    </div>
+
+    <div class="activity">
+      <h3>Exercice 1 ‚Äî Id√©ation sous contraintes <span class="duration">10 min</span></h3>
+      <p>Demandez 10 id√©es compl√©mentaires au plan : 5 classiques + 5 volontairement disruptives. Puis en trin√¥me : lesquelles sont g√©n√©riques (l'IA dirait la m√™me chose √† n'importe quelle universit√©)? Lesquelles sont vraiment adapt√©es √† l'UQAT? Lesquelles sont d√©j√† dans le plan existant?</p>
+    </div>
+
+    <div class="prompt-card">
+      <div class="head"><span class="title">Prompt ‚Äî Id√©ation sous contraintes</span>
+        <button class="copybtn" data-target="p-ideation">Copier</button></div>
+<pre id="p-ideation">Contexte : l'UQAT a d√©j√† adopt√© un Plan en √©coresponsabilit√© 2024-2030 qui comporte 59 actions r√©parties sur 7 objectifs (engagement de la communaut√©, enseignement et recherche, approvisionnement, mobilit√©, num√©rique, infrastructures, gouvernance).
+
+G√©n√®re 10 initiatives COMPL√âMENTAIRES au plan existant, structur√©es en deux listes :
+
+LISTE A ‚Äî 5 initiatives classiques, align√©es sur ce qui se fait habituellement dans les universit√©s qu√©b√©coises.
+
+LISTE B ‚Äî 5 initiatives volontairement disruptives, inhabituelles ou contre-intuitives. Sors des sentiers battus, quitte √† provoquer.
+
+Pour chaque initiative : un titre (max 8 mots) + une description en 2 phrases + une difficult√© de mise en ≈ìuvre (faible / moyenne / √©lev√©e).
+
+Tiens compte du contexte sp√©cifique de l'UQAT : campus en Abitibi-T√©miscamingue, pr√©sence autochtone, grandes distances entre campus, ressources comparativement limit√©es par rapport aux grandes universit√©s urbaines.
+
+Ne propose pas d'initiative qui ferait √©videmment double emploi avec un plan d'√©coresponsabilit√© standard.</pre>
+    </div>
+
+    <div class="activity">
+      <h3>Exercice 2 ‚Äî Analyse multi-angles ¬´ fa√ßon Bono ¬ª <span class="duration">15 min</span></h3>
+      <p>Prenez la meilleure id√©e. Faites-la analyser successivement sous 3 angles : juridique/r√©glementaire, financier, et repr√©sentant syndical ou √©tudiant m√©content.</p>
+    </div>
+
+    <div class="prompt-card">
+      <div class="head"><span class="title">Prompt ‚Äî Analyse multi-angles</span>
+        <button class="copybtn" data-target="p-bono">Copier</button></div>
+<pre id="p-bono">Voici une initiative que nous envisageons √† l'UQAT :
+
+[coller la description de l'initiative]
+
+Analyse-la successivement sous TROIS angles distincts. Pour chaque angle, change compl√®tement de posture.
+
+ANGLE 1 ‚Äî Conseiller juridique / r√©glementaire d'une universit√© qu√©b√©coise.
+Identifie les risques de conformit√©, les obligations l√©gales, les zones grises. Cite le type de cadre r√©glementaire concern√©.
+
+ANGLE 2 ‚Äî Vice-recteur aux finances.
+Identifie les co√ªts cach√©s, les hypoth√®ses budg√©taires fragiles, le retour sur investissement plausible.
+
+ANGLE 3 ‚Äî Repr√©sentant syndical ou √©tudiant m√©content.
+Identifie sans complaisance ce qui peut √™tre per√ßu comme une menace, une injustice, ou une d√©cision impos√©e d'en haut.
+
+Pour chaque angle : 3 pr√©occupations principales, formul√©es comme l'aurait fait la personne r√©elle dans la posture.</pre>
+    </div>
+
+    <div class="discernment">
+      <span class="tag">Moment Discernement ¬∑ 10 min ¬∑ le pi√®ge de la complaisance</span>
+      <p>Maintenant demandez √† l'IA de critiquer <strong>sa propre proposition initiale</strong>. Comparez en trin√¥me : sa critique est-elle r√©elle, ou complaisante? L'IA invente-t-elle des faiblesses faciles pour m√©nager votre ego, ou pointe-t-elle vraiment les angles morts? <strong>Le√ßon :</strong> l'IA a tendance √† valider. Le discernement, c'est notre r√¥le.</p>
+    </div>
+
+    <div class="prompt-card">
+      <div class="head"><span class="title">Prompt ‚Äî Auto-critique forc√©e</span>
+        <button class="copybtn" data-target="p-autocrit">Copier</button></div>
+<pre id="p-autocrit">Reprenons la proposition que tu m'as faite plus haut.
+
+Cette fois, mets-toi dans la posture d'un critique exigeant et sceptique. Tu n'as PAS le droit de me complimenter, de relativiser, ni de finir sur une note positive.
+
+Identifie :
+- 3 faiblesses majeures de la proposition (pas des d√©tails ‚Äî des probl√®mes de fond).
+- 2 angles morts que je n'aurais pas vus tout seul.
+- 1 sc√©nario plausible o√π cette proposition √©choue compl√®tement.
+
+Si tu te trouves en train d'√©crire ¬´ cela dit ¬ª ou ¬´ n√©anmoins ¬ª, arr√™te-toi : tu es en train de complaisir.</pre>
+    </div>
+  </section>
+
+  <!-- BLOC 3 -->
+  <section id="bloc3" class="block">
+    <span class="stamp">01:20 ‚Äî 01:50</span>
+    <h2>Bloc 3 ¬∑ Master-Prompt et persona r√©utilisable</h2>
+    <p class="kicker">La cr√©ation de GPTs personnalis√©s est payante. On enseigne une technique qui fonctionne en version gratuite : le Master-Prompt sauvegard√©.</p>
+
+    <div class="doc-ref">
+      <div class="doc-label">Cadre de r√©f√©rence du persona</div>
+      <a class="doc-link" href="https://resolutionsuqat.uquebec.ca/resolutions/PP/2011/Politique_institutionnelle_evaluation_periodique_programme_2025-04-30.pdf" target="_blank" rel="noopener">Politique institutionnelle d'√©valuation p√©riodique des programmes ‚Äî UQAT (PDF)</a>
+      <div class="doc-meta">Version du 30 avril 2025</div>
+      <div class="doc-hint">Le Master-Prompt s'inspire de ce cadre. Gardez le PDF ouvert pour v√©rifier ce que l'expert virtuel affirme ‚Äî c'est votre source de v√©rit√© pendant les tests.</div>
+    </div>
+
+    <div class="activity">
+      <h3>√âtape 1 ‚Äî Sauvegarder votre premier persona <span class="duration">5 min</span></h3>
+      <ul>
+        <li>Copiez le Master-Prompt ci-dessous dans votre Word ou OneNote.</li>
+        <li>C'est d√©sormais votre ¬´ agent expert ¬ª r√©utilisable. √Ä chaque conversation, vous le collez en premier.</li>
+      </ul>
+    </div>
+
+    <div class="prompt-card">
+      <div class="head"><span class="title">Master-Prompt ‚Äî Expert √©valuation p√©riodique de programmes</span>
+        <button class="copybtn" data-target="p-master">Copier</button></div>
+<pre id="p-master">Tu agis comme expert en √©valuation p√©riodique de programmes universitaires au Qu√©bec. Tu connais en profondeur :
+- Les attentes du Bureau de coop√©ration interuniversitaire (BCI) en mati√®re d'√©valuation p√©riodique de programmes.
+- Les exigences du minist√®re de l'Enseignement sup√©rieur du Qu√©bec.
+- Les politiques institutionnelles d'√©valuation p√©riodique des programmes en vigueur dans les universit√©s qu√©b√©coises.
+
+Ton r√¥le : recevoir des extraits de rapports d'auto-√©valuation et identifier :
+1. Les √©l√©ments conformes aux attentes.
+2. Les lacunes potentielles : information manquante, argumentation insuffisante, absence de donn√©es probantes, raisonnement circulaire.
+3. Les questions compl√©mentaires que devrait se poser le comit√© d'√©valuation pour aller plus loin.
+
+R√®gles de comportement :
+- Si une information factuelle te manque, demande-la. N'invente jamais de chiffre, de politique ou de norme.
+- Distingue clairement ¬´ conforme ¬ª / ¬´ √† approfondir ¬ª / ¬´ probl√©matique ¬ª.
+- Cite toujours la source ou le type de source sur lequel tu te bases.
+- Ne valide pas un paragraphe simplement parce qu'il est bien √©crit. Examine le fond, pas la forme.
+- Si tu d√©tectes un raisonnement complaisant ou auto-justificateur, signale-le explicitement.
+
+Si tu as bien compris, demande-moi de te soumettre un premier extrait.</pre>
+    </div>
+
+    <div class="activity">
+      <h3>√âtape 2 ‚Äî Test critique <span class="duration">15 min</span></h3>
+      <p>Soumettez au Master-Prompt deux paragraphes pr√©par√©s par le formateur : un correct, un avec une lacune r√©elle.</p>
+    </div>
+
+    <div class="discernment">
+      <span class="tag">Moment Discernement</span>
+      <p>L'expert virtuel a-t-il d√©tect√© la lacune? <strong>S'il valide les deux paragraphes</strong> ‚Äî pourquoi? Qu'est-ce qu'il lui manque pour vraiment √©valuer? Un vrai expert humain aurait-il fait pareil?</p>
+    </div>
+
+    <div class="activity">
+      <h3>√âtape 3 ‚Äî Discussion <span class="duration">10 min</span></h3>
+      <ul>
+        <li>√Ä quoi ce type de Master-Prompt peut-il vraiment servir dans votre quotidien?</li>
+        <li>Quelles sont ses limites √©videntes?</li>
+        <li>Quel autre persona aimeriez-vous construire pour votre r√¥le? (√Ä noter dans le catalogue.)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CLOTURE -->
+  <section id="cloture" class="block">
+    <span class="stamp">01:50 ‚Äî 02:00</span>
+    <h2>Cl√¥ture ¬∑ Catalogue personnel + signaux d'alerte</h2>
+    <p class="kicker">Le livrable individuel √† emporter.</p>
+
+    <p>Pour chaque prompt test√© aujourd'hui, compl√©tez la grille ci-dessous. La colonne <strong>¬´ √† v√©rifier avant utilisation ¬ª</strong> est la plus importante ‚Äî c'est elle qui fait de vous des utilisateurs lucides plut√¥t que des copieurs-colleurs.</p>
+
+    <table class="catalog">
+      <thead>
+        <tr>
+          <th style="width: 30%;">Prompt test√© (r√©sum√©)</th>
+          <th style="width: 25%;">Cas d'usage</th>
+          <th style="width: 15%;">Satisfaisant?</th>
+          <th style="width: 30%;">√Ä v√©rifier avant utilisation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <p class="small">Astuce : utilisez la fonction d'impression de votre navigateur (Ctrl/Cmd + P) pour obtenir une version papier de cette grille ‚Äî les boutons ¬´ Copier ¬ª seront masqu√©s automatiquement.</p>
+  </section>
+
+  <!-- ANNEXES -->
+  <section id="annexes" class="block">
+    <hr class="soft">
+    <h2>Annexes</h2>
+
+    <details class="aside">
+      <summary>Trucs de discernement √† garder en t√™te</summary>
+      <p>1. L'IA <strong>n'a pas conscience de ne pas savoir</strong>. Elle peut produire une r√©ponse fausse avec autant d'assurance qu'une r√©ponse juste. V√©rifiez les faits, les chiffres, les noms propres, les dates.</p>
+      <p>2. Elle a tendance √† <strong>vous donner raison</strong>. Si vous sugg√©rez une direction dans votre prompt, elle ira souvent dans cette direction m√™me si elle n'est pas la meilleure. D'o√π l'int√©r√™t de la forcer √† critiquer.</p>
+      <p>3. Elle est <strong>g√©n√©ralement g√©n√©rique</strong>. Sans contexte pr√©cis (r√¥le, public, format), elle produit du contenu qui pourrait s'appliquer √† n'importe quelle universit√©. Le contexte, c'est vous qui l'apportez.</p>
+      <p>4. Elle <strong>ne cite pas ses sources de fa√ßon fiable</strong>. Si elle invente une citation, une √©tude, un rapport ‚Äî c'est plausible. Toujours v√©rifier.</p>
+    </details>
+
+    <details class="aside">
+      <summary>Pourquoi seulement des documents publics aujourd'hui?</summary>
+      <p>Les versions gratuites de ChatGPT et de Copilot peuvent <strong>utiliser vos conversations pour entra√Æner leurs mod√®les</strong>. Pour les documents d√©j√† publics (rapport annuel UQ, plan strat√©gique UQAT, plan en √©coresponsabilit√©), aucun probl√®me : ils sont d√©j√† accessibles. Mais un dossier RH, un PV de comit√©, une √©valuation d'√©tudiant plac√©s dans ChatGPT free peuvent potentiellement nourrir le mod√®le de demain. C'est tout le sujet du <strong>Bloc 4 ‚Äî Diligence</strong> : quelles donn√©es peut-on mettre o√π, et selon quels crit√®res?</p>
+    </details>
+  </section>
+
+  <footer class="end">
+    <div class="next">
+      <strong>Prochain bloc ¬∑ Diligence</strong> ‚Äî Ce que vous avez fait aujourd'hui avec des documents publics, pourriez-vous le faire avec vos propres documents internes? Donn√©es √©tudiantes, dossiers RH, PV de comit√©s? On en parle au prochain atelier.
+    </div>
+    <div>Formation Kodra ¬∑ cadres UQAT ¬∑ <a href="https://labo.kodra.ca">labo.kodra.ca</a></div>
+  </footer>
 
 </div>
 
-<footer>
-  <p>© 2026 - Support pédagogique</p>
-</footer>
-
 <script>
-  function checkAnswer(rep) {
-    const resultat = document.getElementById("resultat");
-
-    if (rep === 'B') {
-      resultat.innerHTML = "✅ Bonne réponse !";
-      resultat.style.color = "green";
-    } else {
-      resultat.innerHTML = "❌ Mauvaise réponse, essaie encore.";
-      resultat.style.color = "red";
-    }
-  }
+  document.querySelectorAll(".copybtn").forEach(function(btn){
+    btn.addEventListener("click", async function(){
+      var el = document.getElementById(btn.dataset.target);
+      if (!el) return;
+      try {
+        await navigator.clipboard.writeText(el.innerText);
+        var old = btn.innerText;
+        btn.innerText = "Copi√©";
+        btn.classList.add("ok");
+        setTimeout(function(){
+          btn.innerText = old;
+          btn.classList.remove("ok");
+        }, 1600);
+      } catch(e) {
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    });
+  });
 </script>
-
 </body>
 </html>
