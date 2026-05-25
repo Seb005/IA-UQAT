@@ -127,6 +127,72 @@
   table.catalog th { background: #fafafa; text-align: left; font-weight: 600; }
   table.catalog td { height: 44px; }
 
+  /* Formulaire interactif du catalogue */
+  .catalogue-form { margin: 18px 0; }
+  .catalogue-form .field-row { margin: 10px 0; }
+  .catalogue-form label {
+    display: block; font-weight: 600; font-size: 13px;
+    margin-bottom: 4px; color: var(--ink);
+  }
+  .catalogue-form label .required { color: var(--accent); }
+  .catalogue-form input[type="text"],
+  .catalogue-form textarea {
+    width: 100%; padding: 8px 10px; font: 14px/1.45 inherit;
+    border: 1px solid var(--line-strong); border-radius: 6px;
+    background: #fff; color: var(--ink); resize: vertical;
+  }
+  .catalogue-form input[type="text"]:focus,
+  .catalogue-form textarea:focus {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-soft);
+  }
+
+  .prenom-field { background: var(--accent-soft); border: 1px solid #f3d2b8; border-radius: 8px; padding: 12px 14px; margin-bottom: 18px; }
+  .prenom-field input { background: #fff; }
+
+  .row-entry {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 10px 0;
+    background: #fafafa;
+    position: relative;
+  }
+  .row-entry .row-num {
+    font-size: 11px; color: var(--ink-soft); font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .row-entry .row-fields { display: grid; gap: 8px; }
+  .row-entry .row-fields textarea { min-height: 52px; }
+  .row-entry .remove-row {
+    position: absolute; top: 8px; right: 10px;
+    background: transparent; border: none; color: var(--ink-soft);
+    cursor: pointer; font-size: 18px; line-height: 1; padding: 4px 8px;
+    border-radius: 4px;
+  }
+  .row-entry .remove-row:hover { color: var(--accent); background: #fff; }
+
+  .add-row-btn {
+    background: #fff; border: 1px dashed var(--line-strong);
+    border-radius: 8px; padding: 10px 14px; cursor: pointer;
+    font: 600 14px inherit; color: var(--ink-soft); width: 100%;
+    margin-top: 4px;
+  }
+  .add-row-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .form-footer { margin-top: 18px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .submit-btn {
+    background: var(--accent); border: 1px solid var(--accent); color: #fff;
+    padding: 10px 18px; font: 600 14px inherit; border-radius: 8px; cursor: pointer;
+  }
+  .submit-btn:hover { filter: brightness(1.05); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; filter: none; }
+
+  .form-status { font-size: 13px; color: var(--ink-soft); }
+  .form-status.ok { color: #1a7f37; font-weight: 600; }
+  .form-status.err { color: #b91c1c; font-weight: 600; }
+
   footer.end { border-top: 1px solid var(--line); margin-top: 56px; padding-top: 20px; color: var(--ink-soft); font-size: 14px; }
   footer.end .next {
     background: var(--accent-soft); border: 1px solid #f3d2b8; border-radius: 10px;
@@ -569,27 +635,23 @@ Si tu as bien compris, demande-moi de te soumettre un premier extrait.</pre>
     <h2>Clôture · Catalogue personnel + signaux d'alerte</h2>
     <p class="kicker">Le livrable individuel à emporter.</p>
 
-    <p>Pour chaque prompt testé aujourd'hui, complétez la grille ci-dessous. La colonne <strong>« à vérifier avant utilisation »</strong> est la plus importante — c'est elle qui fait de vous des utilisateurs lucides plutôt que des copieurs-colleurs.</p>
+    <p>Pour chaque prompt testé aujourd'hui, ajoutez une entrée ci-dessous. Le champ <strong>« à vérifier avant utilisation »</strong> est le plus important — c'est lui qui fait de vous des utilisateurs lucides plutôt que des copieurs-colleurs. Vos contributions seront partagées en plénière de clôture.</p>
 
-    <table class="catalog">
-      <thead>
-        <tr>
-          <th style="width: 30%;">Prompt testé (résumé)</th>
-          <th style="width: 25%;">Cas d'usage</th>
-          <th style="width: 15%;">Satisfaisant?</th>
-          <th style="width: 30%;">À vérifier avant utilisation</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-      </tbody>
-    </table>
-    <p class="small">Astuce : utilisez la fonction d'impression de votre navigateur (Ctrl/Cmd + P) pour obtenir une version papier de cette grille — les boutons « Copier » seront masqués automatiquement.</p>
+    <form id="catalogue-form" class="catalogue-form" novalidate>
+      <div class="field-row prenom-field">
+        <label for="prenom">Votre prénom <span class="required">*</span></label>
+        <input type="text" id="prenom" name="prenom" required autocomplete="given-name" placeholder="Ex. Fatma">
+      </div>
+
+      <div id="rows-container"></div>
+
+      <button type="button" class="add-row-btn" id="add-row">+ Ajouter un autre prompt</button>
+
+      <div class="form-footer">
+        <button type="submit" class="submit-btn" id="submit-btn">Enregistrer mon catalogue</button>
+        <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+      </div>
+    </form>
   </section>
 
   <!-- ANNEXES -->
@@ -695,6 +757,124 @@ Si tu as bien compris, demande-moi de te soumettre un premier extrait.</pre>
     }, { rootMargin: "-20% 0px -60% 0px", threshold: 0 });
 
     sections.forEach(function(s){ observer.observe(s); });
+  })();
+
+  // Formulaire interactif du catalogue · envoi vers Supabase
+  (function(){
+    var SUPABASE_URL = "https://fenlyuelafsvtdhznufi.supabase.co";
+    var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlbmx5dWVsYWZzdnRkaHpudWZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5MzcyMjcsImV4cCI6MjA4NjUxMzIyN30.LPmtz9YeGFJhCdwEHhJNh-Vi0zFE7NEmsTYBargb5fM";
+    var TABLE = "bloc3_catalogue";
+
+    var form = document.getElementById("catalogue-form");
+    if (!form) return;
+    var container = document.getElementById("rows-container");
+    var addBtn = document.getElementById("add-row");
+    var submitBtn = document.getElementById("submit-btn");
+    var statusEl = document.getElementById("form-status");
+    var prenomEl = document.getElementById("prenom");
+
+    function renumber(){
+      var rows = container.querySelectorAll(".row-entry");
+      rows.forEach(function(r, i){
+        r.querySelector(".row-num").textContent = "Prompt n° " + (i + 1);
+      });
+    }
+
+    function makeRow(){
+      var idx = container.querySelectorAll(".row-entry").length + 1;
+      var div = document.createElement("div");
+      div.className = "row-entry";
+      div.innerHTML =
+        '<div class="row-num">Prompt n° ' + idx + '</div>' +
+        '<button type="button" class="remove-row" aria-label="Retirer cette ligne" title="Retirer">×</button>' +
+        '<div class="row-fields">' +
+          '<div class="field-row">' +
+            '<label>Prompt testé (résumé)</label>' +
+            '<textarea name="prompt_resume" rows="2" placeholder="Ex. Synthèse multiniveau du Plan stratégique"></textarea>' +
+          '</div>' +
+          '<div class="field-row">' +
+            '<label>Cas d’usage</label>' +
+            '<input type="text" name="cas_usage" placeholder="Ex. Préparer une note pour le rectorat">' +
+          '</div>' +
+          '<div class="field-row">' +
+            '<label>Sortie satisfaisante?</label>' +
+            '<input type="text" name="satisfaisant" placeholder="Oui / Non / Partiellement">' +
+          '</div>' +
+          '<div class="field-row">' +
+            '<label>À vérifier avant utilisation</label>' +
+            '<textarea name="a_verifier" rows="2" placeholder="Ex. Chiffres cités, noms propres, conformité au document source"></textarea>' +
+          '</div>' +
+        '</div>';
+      div.querySelector(".remove-row").addEventListener("click", function(){
+        div.remove();
+        renumber();
+      });
+      container.appendChild(div);
+    }
+
+    addBtn.addEventListener("click", makeRow);
+    makeRow(); // première ligne par défaut
+
+    form.addEventListener("submit", async function(e){
+      e.preventDefault();
+      statusEl.className = "form-status";
+
+      var prenom = prenomEl.value.trim();
+      if (!prenom) {
+        statusEl.textContent = "Indiquez d’abord votre prénom.";
+        statusEl.className = "form-status err";
+        prenomEl.focus();
+        return;
+      }
+
+      var rows = container.querySelectorAll(".row-entry");
+      var payload = [];
+      rows.forEach(function(r){
+        var entry = {
+          prenom: prenom,
+          prompt_resume: r.querySelector('[name="prompt_resume"]').value.trim() || null,
+          cas_usage: r.querySelector('[name="cas_usage"]').value.trim() || null,
+          satisfaisant: r.querySelector('[name="satisfaisant"]').value.trim() || null,
+          a_verifier: r.querySelector('[name="a_verifier"]').value.trim() || null
+        };
+        if (entry.prompt_resume || entry.cas_usage || entry.satisfaisant || entry.a_verifier) {
+          payload.push(entry);
+        }
+      });
+
+      if (payload.length === 0) {
+        statusEl.textContent = "Ajoutez au moins une entrée avant d’enregistrer.";
+        statusEl.className = "form-status err";
+        return;
+      }
+
+      submitBtn.disabled = true;
+      statusEl.textContent = "Envoi en cours…";
+
+      try {
+        var r = await fetch(SUPABASE_URL + "/rest/v1/" + TABLE, {
+          method: "POST",
+          headers: {
+            "apikey": SUPABASE_ANON_KEY,
+            "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify(payload)
+        });
+        if (!r.ok) {
+          var msg = await r.text();
+          throw new Error("HTTP " + r.status + " · " + msg.slice(0, 200));
+        }
+        statusEl.textContent = "Enregistré · merci " + prenom + " ! Vos entrées ont été partagées avec le formateur.";
+        statusEl.className = "form-status ok";
+        submitBtn.textContent = "Enregistré ✓";
+      } catch(err) {
+        statusEl.textContent = "Erreur d’enregistrement : " + err.message;
+        statusEl.className = "form-status err";
+        submitBtn.disabled = false;
+      }
+    });
   })();
 </script>
 </body>
