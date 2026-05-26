@@ -312,13 +312,21 @@
     transition: width 0.3s ease;
   }
 
+  body.print-checklist .wrap > *:not(.checklist-section),
+  body.print-checklist .toc,
+  body.print-checklist .toc-toggle,
+  body.print-checklist header.top { display: none !important; }
+  body.print-checklist .checklist-section { margin: 0; padding: 0; border: none; }
+
   @media print {
     .cl-actions { display: none; }
+    .cl-progress { display: none; }
     .cl-item input[type="checkbox"] {
       -webkit-appearance: none; appearance: none;
       border: 1.5px solid var(--ink); border-radius: 2px;
       width: 14px; height: 14px;
     }
+    .cl-item.checked label { text-decoration: none; color: var(--ink); }
   }
 
   /* Menu de navigation latéral (haut-gauche, sticky) */
@@ -860,7 +868,7 @@ Le programme de maîtrise en gestion des organisations a fait l'objet d'une éva
     </div>
 
     <div class="cl-actions">
-      <button type="button" class="primary" onclick="window.print()">Imprimer la checklist</button>
+      <button type="button" class="primary" id="cl-print">Imprimer la checklist</button>
       <button type="button" id="cl-reset">Tout décocher</button>
     </div>
   </section>
@@ -1017,6 +1025,13 @@ Le programme de maîtrise en gestion des organisations a fait l'objet d'une éva
     if (resetBtn) resetBtn.addEventListener("click", function(){
       boxes.forEach(function(cb){ cb.checked = false; });
       update();
+    });
+
+    var printBtn = document.getElementById("cl-print");
+    if (printBtn) printBtn.addEventListener("click", function(){
+      document.body.classList.add("print-checklist");
+      window.print();
+      document.body.classList.remove("print-checklist");
     });
   })();
 
