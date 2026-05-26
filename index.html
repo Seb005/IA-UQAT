@@ -205,6 +205,57 @@
   a { color: var(--accent); }
   hr.soft { border: 0; border-top: 2px solid var(--line); margin: 40px 0; }
 
+  /* Introduction 4D */
+  .intro-4d { margin: 0 0 40px; }
+  .intro-4d > p { margin: 10px 0; line-height: 1.6; }
+
+  .cycle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 28px 0;
+  }
+  @media (max-width: 560px) { .cycle { grid-template-columns: 1fr; } }
+
+  .cycle-card {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px;
+    background: #fff;
+    position: relative;
+  }
+  .cycle-card.done { opacity: 0.55; }
+  .cycle-card.active {
+    border-color: var(--accent);
+    border-width: 2px;
+    background: var(--accent-soft);
+    box-shadow: 0 2px 12px rgba(210, 105, 30, 0.1);
+  }
+  .cycle-card.upcoming { border-style: dashed; }
+  .cycle-card .d-num {
+    font-size: 32px; font-weight: 800; color: var(--line-strong);
+    line-height: 1; margin: 0 0 4px;
+  }
+  .cycle-card.active .d-num { color: var(--accent); }
+  .cycle-card .d-title { font-weight: 700; font-size: 16px; margin: 0 0 4px; }
+  .cycle-card .d-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0; line-height: 1.45; }
+  .cycle-card .d-badge {
+    position: absolute; top: 12px; right: 14px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 999px;
+  }
+  .cycle-card.done .d-badge { background: #e8f5e9; color: #2e7d32; }
+  .cycle-card.active .d-badge { background: var(--accent); color: #fff; }
+  .cycle-card.upcoming .d-badge { background: #f5f5f5; color: var(--ink-soft); }
+
+  .cycle-note {
+    text-align: center;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 6px 0 0;
+    font-style: italic;
+  }
+
   /* Menu de navigation latéral (haut-gauche, sticky) */
   .toc {
     position: fixed;
@@ -285,6 +336,7 @@
 <aside id="toc" class="toc" aria-label="Plan du document">
   <div class="toc-title">Plan de l'atelier</div>
   <ul>
+    <li><a href="#intro"><span class="time"></span>Les 4D</a></li>
     <li><a href="#filrouge"><span class="time"></span>Fil rouge</a></li>
     <li><a href="#materiel"><span class="time"></span>Matériel</a></li>
     <li><a href="#warmup"><span class="time">00:00</span>Réchauffement</a></li>
@@ -303,6 +355,7 @@
     <h1>Atelier IA · Bloc 3 — Discernement</h1>
     <div class="sub">Laboratoire pratique · 2 heures · ChatGPT free ou Microsoft Copilot free</div>
     <nav class="blocks" aria-label="Navigation des blocs">
+      <a href="#intro">Les 4D</a>
       <a href="#filrouge">Fil rouge</a>
       <a href="#materiel">Matériel</a>
       <a href="#warmup">00:00 · Réchauffement</a>
@@ -313,6 +366,52 @@
       <a href="#annexes">Annexes</a>
     </nav>
   </header>
+
+  <!-- INTRODUCTION 4D -->
+  <section id="intro" class="intro-4d">
+    <h2>Le cadre des 4D — AI Fluency</h2>
+    <p>La maîtrise de l'IA en milieu professionnel repose sur quatre compétences complémentaires. On les appelle les <strong>4D</strong> : ce n'est pas une séquence à suivre étape par étape, mais un <strong>cycle continu</strong> où chaque compétence nourrit les autres.</p>
+
+    <div class="cycle">
+      <div class="cycle-card done">
+        <span class="d-badge">Fait</span>
+        <div class="d-num">D1</div>
+        <div class="d-title">Délégation</div>
+        <p class="d-desc">Identifier ce qui peut (et devrait) être confié à l'IA, et ce qui doit rester humain. Comprendre les forces et les limites de l'outil.</p>
+      </div>
+      <div class="cycle-card done">
+        <span class="d-badge">Fait</span>
+        <div class="d-num">D2</div>
+        <div class="d-title">Description</div>
+        <p class="d-desc">Formuler des instructions précises : rôle, contexte, format de sortie, contraintes. Mieux on décrit, meilleur est le résultat.</p>
+      </div>
+      <div class="cycle-card active">
+        <span class="d-badge">Aujourd'hui</span>
+        <div class="d-num">D3</div>
+        <div class="d-title">Discernement</div>
+        <p class="d-desc">Évaluer de manière critique ce que l'IA produit. Distinguer le plausible du vrai. Ne jamais transmettre une sortie sans la confronter à la source.</p>
+      </div>
+      <div class="cycle-card upcoming">
+        <span class="d-badge">Prochain</span>
+        <div class="d-num">D4</div>
+        <div class="d-title">Diligence</div>
+        <p class="d-desc">Savoir quelles données on peut confier à l'IA, sur quelle plateforme, et selon quels critères de confidentialité et de conformité.</p>
+      </div>
+    </div>
+    <p class="cycle-note">Les 4D ne sont pas linéaires : un bon discernement vous ramène à améliorer vos descriptions, et la diligence influence ce que vous déléguez.</p>
+
+    <p>Lors des deux premiers ateliers, vous avez exploré la <strong>Délégation</strong> (quand et quoi confier à l'IA) et la <strong>Description</strong> (comment formuler un prompt efficace). Vous avez vu qu'un prompt bien structuré — avec un rôle, un contexte, un format de sortie et des garde-fous — produit des résultats radicalement différents d'une question vague.</p>
+
+    <p>Aujourd'hui, on passe au <strong>Discernement</strong> : la compétence la plus importante. Parce que même un excellent prompt peut produire une sortie plausible mais fausse, complaisante, ou générique. Le discernement, c'est <strong>votre filtre critique</strong> — celui que l'IA ne peut pas exercer à votre place.</p>
+
+    <p>Concrètement, à la fin de cet atelier vous saurez :</p>
+    <ul>
+      <li>Rédiger des prompts documentaires avancés (synthèse multiniveau, clone éditorial)</li>
+      <li>Forcer l'IA à critiquer ses propres propositions plutôt qu'à vous donner raison</li>
+      <li>Construire un « Master-Prompt » réutilisable pour votre domaine d'expertise</li>
+      <li>Identifier les signaux d'alerte avant de transmettre une sortie IA à un collègue ou un supérieur</li>
+    </ul>
+  </section>
 
   <section id="filrouge" class="filrouge">
     <div class="label">Fil rouge de l'atelier</div>
