@@ -48,25 +48,26 @@
   .filrouge ol { margin: 8px 0 0; padding-left: 22px; }
   .filrouge li { margin: 4px 0; font-weight: 500; }
 
-  section.block { margin: 40px 0 0; }
+  section.block { margin: 56px 0 0; padding-top: 32px; border-top: 2px solid var(--line); }
   section.block > .stamp {
     display: inline-block; font-variant-numeric: tabular-nums;
     font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.04em;
+    background: var(--accent-soft); padding: 3px 10px; border-radius: 999px;
   }
-  section.block > h2 { font-size: 22px; margin: 4px 0 10px; }
-  section.block > p.kicker { color: var(--ink-soft); margin: 0 0 18px; font-style: italic; font-size: 15px; }
+  section.block > h2 { font-size: 24px; margin: 8px 0 10px; }
+  section.block > p.kicker { color: var(--ink-soft); margin: 0 0 22px; font-style: italic; font-size: 15px; }
 
-  .activity { border-left: 3px solid var(--line); padding: 4px 0 4px 16px; margin: 18px 0; }
-  .activity h3 { margin: 0 0 6px; font-size: 16px; }
+  .activity { border-left: 3px solid var(--line); padding: 6px 0 6px 18px; margin: 24px 0; }
+  .activity h3 { margin: 0 0 8px; font-size: 16px; }
   .activity .duration { font-size: 12px; color: var(--ink-soft); margin-left: 6px; font-weight: 400; }
-  .activity ul, .activity ol { margin: 6px 0; padding-left: 22px; }
-  .activity li { margin: 3px 0; }
+  .activity ul, .activity ol { margin: 8px 0; padding-left: 22px; }
+  .activity li { margin: 4px 0; }
 
   .discernment {
     border-left: 3px solid var(--accent);
     background: var(--highlight);
-    padding: 12px 14px;
-    margin: 14px 0;
+    padding: 14px 18px;
+    margin: 28px 0;
     border-radius: 0 8px 8px 0;
   }
   .discernment .tag { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
@@ -75,7 +76,7 @@
   .prompt-card {
     border: 1px solid var(--line);
     border-radius: 10px;
-    margin: 14px 0;
+    margin: 20px 0;
     overflow: hidden;
     background: #fff;
   }
@@ -98,8 +99,8 @@
   }
 
   details.aside {
-    margin: 14px 0; border: 1px dashed var(--line-strong); border-radius: 8px;
-    padding: 10px 14px; background: #fcfcfc;
+    margin: 20px 0; border: 1px dashed var(--line-strong); border-radius: 8px;
+    padding: 12px 16px; background: #fcfcfc;
   }
   details.aside summary { cursor: pointer; font-weight: 600; font-size: 14px; }
   details.aside p { margin: 8px 0 0; font-size: 14px; color: var(--ink-soft); }
@@ -108,8 +109,8 @@
     border: 1px solid var(--line);
     border-left: 3px solid var(--accent);
     border-radius: 0 8px 8px 0;
-    padding: 12px 16px;
-    margin: 14px 0;
+    padding: 14px 18px;
+    margin: 16px 0;
     background: #fcfcfc;
   }
   .doc-ref .doc-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
@@ -118,9 +119,9 @@
   .doc-ref .doc-meta { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
   .doc-ref .doc-hint { font-size: 13px; color: var(--ink-soft); margin-top: 6px; }
 
-  .materiel { margin: 28px 0 0; }
-  .materiel h2 { font-size: 18px; margin: 0 0 10px; }
-  .materiel .grid { display: grid; gap: 10px; }
+  .materiel { margin: 28px 0 0; padding: 24px; background: #f9f9f9; border-radius: 12px; border: 1px solid var(--line); }
+  .materiel h2 { font-size: 18px; margin: 0 0 12px; }
+  .materiel .grid { display: grid; gap: 14px; }
 
   table.catalog { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
   table.catalog th, table.catalog td { border: 1px solid var(--line); padding: 8px 10px; vertical-align: top; }
@@ -193,7 +194,7 @@
   .form-status.ok { color: #1a7f37; font-weight: 600; }
   .form-status.err { color: #b91c1c; font-weight: 600; }
 
-  footer.end { border-top: 1px solid var(--line); margin-top: 56px; padding-top: 20px; color: var(--ink-soft); font-size: 14px; }
+  footer.end { border-top: 2px solid var(--line); margin-top: 64px; padding-top: 28px; color: var(--ink-soft); font-size: 14px; }
   footer.end .next {
     background: var(--accent-soft); border: 1px solid #f3d2b8; border-radius: 10px;
     padding: 14px 16px; margin: 12px 0 18px; color: var(--ink);
@@ -202,7 +203,7 @@
 
   .small { font-size: 13px; color: var(--ink-soft); }
   a { color: var(--accent); }
-  hr.soft { border: 0; border-top: 1px solid var(--line); margin: 28px 0; }
+  hr.soft { border: 0; border-top: 2px solid var(--line); margin: 40px 0; }
 
   /* Menu de navigation latéral (haut-gauche, sticky) */
   .toc {
