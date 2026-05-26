@@ -256,6 +256,71 @@
     font-style: italic;
   }
 
+  /* Checklist discernement */
+  .checklist-section {
+    margin: 56px 0 0;
+    padding-top: 32px;
+    border-top: 2px solid var(--line);
+  }
+  .checklist-section > h2 { font-size: 24px; margin: 0 0 6px; }
+  .checklist-section > .sub { color: var(--ink-soft); font-size: 14px; margin: 0 0 24px; }
+
+  .cl-group { margin: 24px 0; }
+  .cl-group-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--accent);
+    margin: 0 0 10px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--line);
+  }
+  .cl-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 0; border-bottom: 1px solid #f0f0f0;
+  }
+  .cl-item:last-child { border-bottom: none; }
+  .cl-item input[type="checkbox"] {
+    margin-top: 3px; flex-shrink: 0;
+    width: 18px; height: 18px; accent-color: var(--accent);
+    cursor: pointer;
+  }
+  .cl-item label { cursor: pointer; font-size: 14.5px; line-height: 1.45; }
+  .cl-item label strong { font-weight: 600; }
+  .cl-item.checked label { color: var(--ink-soft); text-decoration: line-through; }
+
+  .cl-actions {
+    display: flex; gap: 10px; margin: 24px 0 0; flex-wrap: wrap;
+  }
+  .cl-actions button {
+    padding: 8px 16px; font: 500 13px inherit; border-radius: 6px;
+    cursor: pointer; border: 1px solid var(--line-strong);
+    background: #fff; color: var(--ink);
+  }
+  .cl-actions button:hover { border-color: var(--accent); color: var(--accent); }
+  .cl-actions button.primary {
+    background: var(--accent); border-color: var(--accent); color: #fff;
+  }
+  .cl-actions button.primary:hover { filter: brightness(1.05); }
+
+  .cl-progress {
+    margin: 18px 0 0; font-size: 13px; color: var(--ink-soft);
+  }
+  .cl-progress-bar {
+    height: 6px; background: var(--line); border-radius: 3px;
+    margin-top: 6px; overflow: hidden;
+  }
+  .cl-progress-fill {
+    height: 100%; background: var(--accent); border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+
+  @media print {
+    .cl-actions { display: none; }
+    .cl-item input[type="checkbox"] {
+      -webkit-appearance: none; appearance: none;
+      border: 1.5px solid var(--ink); border-radius: 2px;
+      width: 14px; height: 14px;
+    }
+  }
+
   /* Menu de navigation latéral (haut-gauche, sticky) */
   .toc {
     position: fixed;
@@ -343,6 +408,7 @@
     <li><a href="#bloc1"><span class="time">00:15</span>Bloc 1 · Ingénierie</a></li>
     <li><a href="#bloc2"><span class="time">00:45</span>Bloc 2 · Mise à l'épreuve</a></li>
     <li><a href="#bloc3"><span class="time">01:20</span>Bloc 3 · Master-Prompt</a></li>
+    <li><a href="#checklist"><span class="time"></span>Checklist</a></li>
     <li><a href="#cloture"><span class="time">01:50</span>Clôture</a></li>
     <li><a href="#annexes"><span class="time"></span>Annexes</a></li>
   </ul>
@@ -362,6 +428,7 @@
       <a href="#bloc1">00:15 · Ingénierie documentaire</a>
       <a href="#bloc2">00:45 · Idéation & mise à l'épreuve</a>
       <a href="#bloc3">01:20 · Master-Prompt</a>
+      <a href="#checklist">Checklist</a>
       <a href="#cloture">01:50 · Clôture</a>
       <a href="#annexes">Annexes</a>
     </nav>
@@ -751,6 +818,53 @@ Le programme de maîtrise en gestion des organisations a fait l'objet d'une éva
     </div>
   </section>
 
+  <!-- CHECKLIST DISCERNEMENT -->
+  <section id="checklist" class="checklist-section">
+    <h2>Checklist Discernement</h2>
+    <p class="sub">Avant de transmettre, publier ou utiliser une sortie IA, passez-la au filtre. Imprimez cette page ou gardez cet onglet ouvert comme aide-mémoire.</p>
+
+    <div class="cl-group">
+      <div class="cl-group-title">1. Les faits sont-ils exacts?</div>
+      <div class="cl-item"><input type="checkbox" id="cl1"><label for="cl1"><strong>Chiffres et dates</strong> — Ai-je vérifié chaque chiffre, pourcentage, date et statistique dans la source originale?</label></div>
+      <div class="cl-item"><input type="checkbox" id="cl2"><label for="cl2"><strong>Noms propres</strong> — Les noms de personnes, comités, politiques, programmes existent-ils réellement?</label></div>
+      <div class="cl-item"><input type="checkbox" id="cl3"><label for="cl3"><strong>Citations et références</strong> — Si l'IA cite un document, une loi ou une étude, ai-je confirmé que cette source existe?</label></div>
+      <div class="cl-item"><input type="checkbox" id="cl4"><label for="cl4"><strong>Liens causaux</strong> — L'IA affirme-t-elle des relations de cause à effet qui ne figurent pas dans la source?</label></div>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">2. Le contenu est-il spécifique ou générique?</div>
+      <div class="cl-item"><input type="checkbox" id="cl5"><label for="cl5"><strong>Test de substitution</strong> — Si je remplace « UQAT » par « n'importe quelle université », le texte reste-t-il identique? Si oui, c'est générique.</label></div>
+      <div class="cl-item"><input type="checkbox" id="cl6"><label for="cl6"><strong>Contexte régional</strong> — Le contenu tient-il compte de nos réalités (Abitibi-Témiscamingue, distances, présence autochtone, taille)?</label></div>
+      <div class="cl-item"><input type="checkbox" id="cl7"><label for="cl7"><strong>Déjà existant?</strong> — L'IA propose-t-elle quelque chose qui existe déjà chez nous sous un autre nom?</label></div>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">3. Le raisonnement est-il solide?</div>
+      <div class="cl-item"><input type="checkbox" id="cl8"><label for="cl8"><strong>Complaisance</strong> — L'IA me donne-t-elle simplement raison? Ai-je testé un contre-argument?</label></div>
+      <div class="cl-item"><input type="checkbox" id="cl9"><label for="cl9"><strong>Données probantes</strong> — Les affirmations sont-elles appuyées par des données, ou seulement par du texte « qui sonne bien »?</label></div>
+      <div class="cl-item"><input type="checkbox" id="cl10"><label for="cl10"><strong>Nuances absentes</strong> — L'IA a-t-elle omis les limites, risques ou points de vue opposés?</label></div>
+      <div class="cl-item"><input type="checkbox" id="cl11"><label for="cl11"><strong>Raisonnement circulaire</strong> — La conclusion ne fait-elle que reformuler la prémisse sans apporter de valeur?</label></div>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">4. La sortie est-elle prête à transmettre?</div>
+      <div class="cl-item"><input type="checkbox" id="cl12"><label for="cl12"><strong>Public cible</strong> — Le ton, le niveau de détail et le vocabulaire conviennent-ils au destinataire (recteur? collègue? étudiant?)?</label></div>
+      <div class="cl-item"><input type="checkbox" id="cl13"><label for="cl13"><strong>Ce que j'ai ajouté</strong> — Ai-je apporté mon expertise, mon jugement ou du contexte que l'IA n'avait pas?</label></div>
+      <div class="cl-item"><input type="checkbox" id="cl14"><label for="cl14"><strong>Ce que j'ai retiré</strong> — Ai-je supprimé les formulations creuses, les redondances et le remplissage?</label></div>
+      <div class="cl-item"><input type="checkbox" id="cl15"><label for="cl15"><strong>Responsabilité</strong> — Suis-je à l'aise de signer ce document comme étant le mien?</label></div>
+    </div>
+
+    <div class="cl-progress">
+      <span id="cl-count">0 / 15</span>
+      <div class="cl-progress-bar"><div class="cl-progress-fill" id="cl-fill" style="width:0%"></div></div>
+    </div>
+
+    <div class="cl-actions">
+      <button type="button" class="primary" onclick="window.print()">Imprimer la checklist</button>
+      <button type="button" id="cl-reset">Tout décocher</button>
+    </div>
+  </section>
+
   <!-- CLOTURE -->
   <section id="cloture" class="block">
     <span class="stamp">01:50 — 02:00</span>
@@ -879,6 +993,31 @@ Le programme de maîtrise en gestion des organisations a fait l'objet d'une éva
     }, { rootMargin: "-20% 0px -60% 0px", threshold: 0 });
 
     sections.forEach(function(s){ observer.observe(s); });
+  })();
+
+  // Checklist discernement — progression + strikethrough
+  (function(){
+    var boxes = document.querySelectorAll('.checklist-section input[type="checkbox"]');
+    var countEl = document.getElementById("cl-count");
+    var fillEl = document.getElementById("cl-fill");
+    var resetBtn = document.getElementById("cl-reset");
+    if (!boxes.length || !countEl || !fillEl) return;
+    var total = boxes.length;
+
+    function update(){
+      var checked = document.querySelectorAll('.checklist-section input[type="checkbox"]:checked').length;
+      countEl.textContent = checked + " / " + total;
+      fillEl.style.width = Math.round(checked / total * 100) + "%";
+      boxes.forEach(function(cb){
+        cb.closest(".cl-item").classList.toggle("checked", cb.checked);
+      });
+    }
+
+    boxes.forEach(function(cb){ cb.addEventListener("change", update); });
+    if (resetBtn) resetBtn.addEventListener("click", function(){
+      boxes.forEach(function(cb){ cb.checked = false; });
+      update();
+    });
   })();
 
   // Formulaire interactif du catalogue · envoi vers Supabase
